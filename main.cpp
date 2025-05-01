@@ -9,53 +9,53 @@ int main()
 {
     try
     {
-        // JSON 생성
+        // Create JSON
         json config;
-        config["name"] = "JSON 예제";
+        config["name"] = "JSON Example";
         config["version"] = 1.0;
 
-        // 배열 추가
+        // Add array
         config["languages"] = {"C++", "Python", "JavaScript"};
 
-        // 중첩된 객체 추가
+        // Add nested object
         config["database"] = {
             {"host", "localhost"},
             {"port", 5432},
             {"name", "test_db"}};
 
-        // JSON을 문자열로 출력
-        std::cout << "생성된 JSON:\n"
+        // Print JSON as string
+        std::cout << "Generated JSON:\n"
                   << config.dump(2) << "\n\n";
 
-        // JSON을 파일로 저장
+        // Save JSON to file
         std::ofstream fout("config.json");
         fout << config.dump(4);
         fout.close();
-        std::cout << "config.json 파일이 생성되었습니다.\n\n";
+        std::cout << "config.json file has been created.\n\n";
 
-        // JSON 파일 읽기
+        // Read JSON file
         std::ifstream fin("config.json");
         json loaded_config = json::parse(fin);
 
-        // 데이터 접근
-        std::cout << "파일에서 읽은 데이터:\n";
-        std::cout << "이름: " << loaded_config["name"] << "\n";
-        std::cout << "버전: " << loaded_config["version"] << "\n";
+        // Access data
+        std::cout << "Data read from file:\n";
+        std::cout << "Name: " << loaded_config["name"] << "\n";
+        std::cout << "Version: " << loaded_config["version"] << "\n";
 
-        std::cout << "지원 언어:\n";
+        std::cout << "Supported languages:\n";
         for (const auto &lang : loaded_config["languages"])
         {
             std::cout << "- " << lang << "\n";
         }
 
-        std::cout << "\n데이터베이스 설정:\n";
-        std::cout << "호스트: " << loaded_config["database"]["host"] << "\n";
-        std::cout << "포트: " << loaded_config["database"]["port"] << "\n";
-        std::cout << "DB 이름: " << loaded_config["database"]["name"] << "\n";
+        std::cout << "\nDatabase settings:\n";
+        std::cout << "Host: " << loaded_config["database"]["host"] << "\n";
+        std::cout << "Port: " << loaded_config["database"]["port"] << "\n";
+        std::cout << "DB Name: " << loaded_config["database"]["name"] << "\n";
     }
     catch (const json::exception &e)
     {
-        std::cerr << "JSON 오류: " << e.what() << "\n";
+        std::cerr << "JSON Error: " << e.what() << "\n";
         return 1;
     }
 
